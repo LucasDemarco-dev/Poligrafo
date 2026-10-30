@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SISTEMA DE POLÍGRAFO DE VIGILÂNCIA // PERSON OF INTEREST</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body class="theme-samaritan">
+
+
+  <header class="sys-header">
+    <div class="sys-title">
+      <span class="sys-icon">██</span>
+      <span id="sys-name">SAMARITANO // INTERROGATION FORM SYSTEM v4.0.8</span>
+    </div>
+  </header>
+
+  <nav class="app-nav">
+    <button class="nav-btn active" data-tab="tab-interrogation">01. FORMULÁRIO DE INTERROGATÓRIO</button>
+    <button class="nav-btn" data-tab="tab-editor">02. CRIAR / EDITAR FORMS</button>
+    <button class="nav-btn" data-tab="tab-history">03. HISTÓRICO DE LAUDOS</button>
+  </nav>
+
+  <main class="main-container">
+
+
+    <section id="tab-interrogation" class="tab-content active">
+      <div class="grid-layout">
+        
+        <div class="card form-panel">
+          <div class="card-header">
+            <span>> FORMULÁRIO DE AVALIAÇÃO DE VERACIDADE</span>
+            <span id="form-progress-text">PASSO 0 / 0</span>
+          </div>
+
+          <div class="form-select-group" id="select-questionnaire-container">
+            <label for="select-questionnaire">> SELECIONE O PROTOCOLO DE PERGUNTAS:</label>
+            <select id="select-questionnaire"></select>
+            <button id="btn-start-form" class="btn-primary">INICIAR TESTE DO POLÍGRAFO</button>
+          </div>
+
+          <div id="form-active-area" class="hidden">
+            <div class="progress-bar-container">
+              <div id="form-progress-fill" class="progress-bar-fill"></div>
+            </div>
+
+            <div class="question-box">
+              <span class="question-badge" id="q-category">CATEGORIA: CARREGANDO...</span>
+              <h2 id="q-text" class="typewriter-text">Carregando pergunta...</h2>
+            </div>
+
+            <form id="active-question-form">
+              <div id="q-input-container" class="input-area">
+
+              </div>
+              <button type="submit" id="btn-next-question" class="btn-primary">REGISTRAR RESPOSTA & PRÓXIMA ></button>
+            </form>
+          </div>
+        </div>
+
+        <div class="card polygraph-panel">
+          <div class="card-header">
+            <span>> MONITORES BIOMÉTRICOS EM TEMPO REAL</span>
+            <span id="threat-level" class="status-badge">NÍVEL DE AMEAÇA: NORMAL</span>
+          </div>
+
+          <div class="vital-stats">
+            <div class="stat-box">
+              <span class="stat-label">ECG / BATIMENTOS</span>
+              <span class="stat-value" id="val-bpm">72 <small>BPM</small></span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">GSR / CONDUTÂNCIA</span>
+              <span class="stat-value" id="val-gsr">2.4 <small>µS</small></span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">RESPIRAÇÃO</span>
+              <span class="stat-value" id="val-resp">16 <small>RPM</small></span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">ESTRESSE FÍSICO</span>
+              <span class="stat-value" id="val-stress">12%</span>
+            </div>
+          </div>
+
+          <div class="canvas-wrapper">
+            <canvas id="polygraph-canvas"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="tab-editor" class="tab-content">
+      <div class="card">
+        <div class="card-header">> CRIADOR E EDITOR DE FORMULÁRIOS DE POLÍGRAFO</div>
+        <div class="editor-layout">
+          
+          <form id="create-form-schema" class="editor-form">
+            <h3>CRIAR NOVO QUESTIONÁRIO</h3>
+            <div class="field-group">
+              <label>TÍTULO DO FORMULÁRIO:</label>
+              <input type="text" id="new-form-title" placeholder="Ex: Interrogatório de Invasão de Dados" required>
+            </div>
+
+            <hr class="divider">
+
+            <h4>ADICIONAR PERGUNTA AO FORMULÁRIO</h4>
+            <div class="field-group">
+              <label>TEXTO DA PERGUNTA:</label>
+              <input type="text" id="new-q-text" placeholder="Ex: Você transmitiu o código para a concorrência?">
+            </div>
+            <div class="field-group">
+              <label>CATEGORIA:</label>
+              <select id="new-q-cat">
+                <option value="NEUTRA">NEUTRA (Linha de base)</option>
+                <option value="CONTROLE">CONTROLE (Estresse Moderado)</option>
+                <option value="CRÍTICA">CRÍTICA (Alto Risco de Mentira)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>TIPO DE RESPOSTA:</label>
+              <select id="new-q-type">
+                <option value="BOOL">Sim / Não (Botões Diretos)</option>
+                <option value="TEXT">Texto Livre (Mede Hesitação na Digitação)</option>
+                <option value="SCALE">Escala de Dúvida / Nível (1 a 10)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>PESO DE ESTRESSE CAUSADO (0 a 100%):</label>
+              <input type="number" id="new-q-stress" min="0" max="100" value="30">
+            </div>
+
+            <button type="button" id="btn-add-q-to-list" class="btn-secondary">+ ADICIONAR PERGUNTA À LISTA</button>
+
+            <div class="questions-preview">
+              <h4>PERGUNTAS ADICIONADAS:</h4>
+              <ul id="preview-q-list"></ul>
+            </div>
+
+            <button type="submit" class="btn-primary">SALVAR FORMULÁRIO NO SISTEMA</button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+
+
+    <section id="tab-history" class="tab-content">
+      <div class="card">
+        <div class="card-header">> REGISTROS DE LAUDOS E RESULTADOS ARQUIVADOS</div>
+        <div id="history-list" class="history-grid"></div>
+      </div>
+    </section>
+
+  </main>
+
+  
+  <div id="modal-report" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <span>LAUDO FINAL DE POLÍGRAFO // ANÁLISE DE IA</span>
+        <button id="btn-close-modal">X</button>
+      </div>
+      <div id="report-content" class="modal-body">
+        
+      </div>
+      <div class="modal-footer">
+        <button id="btn-print-report" class="btn-secondary">IMPRIMIR / GERAR PDF</button>
+        <button id="btn-save-report" class="btn-primary">SALVAR NO LOCALSTORAGE</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="JavaScript.js"></script>
+</body>
+</html>
